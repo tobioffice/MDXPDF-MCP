@@ -92,7 +92,33 @@ async function performCreatePDF(
     }
   );
 
-  const math_script = `<script>
+  const math_script = `<style>
+/* Override Mermaid font styles to use Computer Modern */
+.mermaid text,
+.mermaid .node text,
+.mermaid .edgeLabel text,
+.mermaid .label text,
+.mermaid .labelText,
+.mermaid .actor,
+.mermaid .messageText,
+.mermaid .noteText,
+.mermaid .loopText {
+  font-family: "CMU Serif", "Computer Modern", serif !important;
+  font-size: 14px !important;
+}
+
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node ellipse,
+.mermaid .node polygon {
+  stroke: #333 !important;
+}
+
+.mermaid .edgePath path {
+  stroke: #333 !important;
+}
+</style>
+<script>
 window.MathJax = {
   tex: {
     inlineMath: [['$', '$'], ['\\\\(', '\\\\)']],
@@ -108,12 +134,15 @@ window.MathJax = {
     theme: 'default',
     themeVariables: {
       primaryColor: '#f4f4f4',
-      primaryTextColor: '#333',
-      primaryBorderColor: '#ccc',
+      primaryTextColor: '#1f2937',
+      primaryBorderColor: '#333',
       lineColor: '#333',
       sectionBkgColor: '#f4f4f4',
-      altSectionBkgColor: '#fff'
-    }
+      altSectionBkgColor: '#fff',
+      fontFamily: '"CMU Serif", "Computer Modern", serif',
+      fontSize: '14px'
+    },
+    fontFamily: '"CMU Serif", "Computer Modern", serif'
   });
 </script>
 `
