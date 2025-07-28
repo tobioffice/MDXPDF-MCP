@@ -20,7 +20,7 @@ const packageVersion = "0.5.0";
 const CREATE_PDF_TOOL: Tool = {
   name: "create_pdf",
   description:
-    "Creates a PDF document from the provided Markdown source code. Supports modern Markdown features including tables, checkboxes, emojis, GitHub-flavored syntax, and inline/display math using $ and $$.",
+    "Creates a PDF document from the provided Markdown source code. Supports modern Markdown features including tables, checkboxes, emojis, GitHub-flavored syntax, Mermaid diagrams, and inline/display math using $ and $$.",
   inputSchema: {
     type: "object",
     properties: {
@@ -81,8 +81,16 @@ async function performCreatePDF(
   markdown_source: string
 ) {
 
-
   const save_path = process.env.SAVE_PATH || '/home/murali/Documents/GeneratedPDF';
+
+  // Convert Mermaid code blocks to HTML divs that Mermaid can render
+  const processedMarkdown = markdown_source.replace(
+    /```mermaid\n([\s\S]*?)\n```/g,
+    (_, code) => {
+      const cleanCode = code.trim();
+      return `<div class="mermaid">\n${cleanCode}\n</div>`;
+    }
+  );
 
   const math_script = `<script>
 window.MathJax = {
@@ -93,17 +101,33 @@ window.MathJax = {
 };
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({ 
+    startOnLoad: true,
+    theme: 'default',
+    themeVariables: {
+      primaryColor: '#f4f4f4',
+      primaryTextColor: '#333',
+      primaryBorderColor: '#ccc',
+      lineColor: '#333',
+      sectionBkgColor: '#f4f4f4',
+      altSectionBkgColor: '#fff'
+    }
+  });
+</script>
 `
 
-  await writeFile(`${save_path}/${file_name}.md`, math_script + markdown_source);
+  await writeFile(`${save_path}/${file_name}.md`, math_script + processedMarkdown);
 
   await mdToPdf({ path: `${save_path}/${file_name}.md` }, {
     dest: `${save_path}/${file_name}.pdf`,
-    stylesheet: ['/home/murali/Documents/MCP servers/MDXPDF-MCP/style.css'],  // optional
+    stylesheet: ['/home/murali/Documents/MCP Servers/MDXPDF-MCP/style.css'],  // optional
     body_class: ['markdown-body'],
     pdf_options: {
       format: 'A4',
-      margin: { top: '1in', right: '1in', bottom: '1in', left: '1in' }
+      margin: { top: '1in', right: '1in', bottom: '1in', left: '1in' },
+      timeout: 30000
     }
     ,
     marked_options: {
