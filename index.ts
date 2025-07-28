@@ -20,7 +20,7 @@ const packageVersion = "0.5.0";
 const CREATE_PDF_TOOL: Tool = {
   name: "create_pdf",
   description:
-    "Creates a PDF document from the provided Markdown source code. Supports modern Markdown features including tables, checkboxes, emojis, GitHub-flavored syntax, Mermaid diagrams, and inline/display math using $ and $$.",
+    "Creates a PDF document from the provided Markdown source code. Supports modern Markdown features including tables, checkboxes, emojis, GitHub-flavored syntax, MERMAID DIAGRAMS, and inline/display math using $ and $$.",
   inputSchema: {
     type: "object",
     properties: {
