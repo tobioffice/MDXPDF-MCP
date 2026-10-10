@@ -98,10 +98,6 @@ MDXPDF-MCP/
 └── package.json
 ```
 
-## Credits
-
-Built on the structure of [latexpdf-mcp](https://github.com/ihor-sokoliuk/latexpdf-mcp) by Ihor Sokoliuk.
-
 ## License
 
 MIT (as declared in `package.json`).
