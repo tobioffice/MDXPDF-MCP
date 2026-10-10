@@ -1,26 +1,25 @@
 {
     "name": "mdxpdf-mcp",
     "version": "0.5.5",
-    "description": "MCP server creating a PDF from LaTeX source code",
+    "description": "MCP server that converts Markdown into clean, modern PDF documents",
     "main": "dist/index.js",
     "license": "MIT",
-    "author": "Ihor Sokoliuk (https://github.com/tobioffice)",
-    "homepage": "https://github.com/ihor-sokoliuk/latexpdf-mcp",
-    "bugs": "https://github.com/ihor-sokoliuk/latexpdf-mcp/issues",
+    "author": "Murali Aggipothu (https://github.com/tobioffice)",
+    "homepage": "https://github.com/tobioffice/MDXPDF-MCP",
+    "bugs": "https://github.com/tobioffice/MDXPDF-MCP/issues",
     "keywords": [
         "mcp",
         "modelcontextprotocol",
-        "latex",
+        "markdown",
         "pdf",
         "document",
-        "ai",
-        "pagination",
-        "smithery",
-        "url-reader"
+        "mermaid",
+        "mathjax",
+        "smithery"
     ],
     "type": "module",
     "bin": {
-        "latexpdf-mcp": "dist/index.js"
+        "mdxpdf-mcp": "dist/index.js"
     },
     "files": [
         "dist"
